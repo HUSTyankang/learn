@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--第一种方式：使用默认的构造函数-->
+    <bean id="service" class="com.spring.learn.service.impl.ServiceImpl" scope="singleton"></bean>
+
+    <bean id="dao" class="com.spring.learn.dao.impl.DaoImpl" scope="prototype"></bean>
+
+    <!--spring管理静态工厂-使用静态工厂的方法创建对象-->
+    <!-- 此种方式是: 使用StaticFactory类中的静态方法theClass创建对象，并存入spring容器
+        id属性：指定bean的id，用于从容器中获取
+        class属性：指定静态工厂的全限定类名
+        factory-method属性：指定生产对象的静态方法
+    -->
+    <bean id="theClass1" class="com.spring.learn.factory.StaticFactory" factory-method="theClass"></bean>
+
+    <!--第三种方式：spring管理实例工厂-使用实例工厂的方法创建对象-->
+    <!-- 此种方式是： 先把工厂的创建交给spring来管理。然后在使用工厂的bean来调用里面的方法
+        factory-bean属性：用于指定实例工厂bean的id。
+        factory-method属性：用于指定实例工厂中创建对象的方法。
+    -->
+    <bean id="instanceFactory" class="com.spring.learn.factory.InstanceFactory"></bean>
+    <bean id="theClass2"
+          factory-bean="instanceFactory"
+          factory-method="getTheClass"></bean>
+</beans>
