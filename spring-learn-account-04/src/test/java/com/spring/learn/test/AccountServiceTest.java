@@ -35,29 +35,4 @@ public class AccountServiceTest {
         }
     }
 
-    @Test
-    public void testFindById() {
-        Account account = iAccountService.findById(1);
-            System.out.println(account);
-    }
-
-    @Test
-    public void testSaveAccount() {
-        Account account = new Account();
-        account.setName("yyy");
-        account.setMoney(1000f);
-        iAccountService.saveAccount(account);
-    }
-
-    @Test
-    public void testUpdatAccount() {
-        Account account = iAccountService.findById(4);
-        account.setName("kkk");
-        iAccountService.updateAccount(account);
-    }
-
-    @Test
-    public void testDeleteAccount() {
-        iAccountService.deleteAccount(4);
-    }
 }
