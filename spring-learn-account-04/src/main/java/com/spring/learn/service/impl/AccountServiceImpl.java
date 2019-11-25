@@ -41,7 +41,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     public void transfer(String sourceName, String targetName, Float money) {
-        accountDao.transfer(sourceName, targetName,100f);
+        accountDao.transfer(sourceName, targetName,money);
     }
 
 
