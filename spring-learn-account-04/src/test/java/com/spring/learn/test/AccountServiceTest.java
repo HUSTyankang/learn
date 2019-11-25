@@ -1,0 +1,63 @@
+package com.spring.learn.test;
+
+
+import com.spring.learn.domain.Account;
+import com.spring.learn.service.IAccountService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
+
+/**
+ * 使用Junit单元测试：测试我们的配置
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:bean.xml")
+public class AccountServiceTest {
+    @Autowired
+    IAccountService iAccountService;
+
+    @Test
+    public void testTransfer(){
+        iAccountService.transfer("yyy","kkk",100f);
+        System.out.println("转账成功！！");
+    }
+
+
+    @Test
+    public void testFindAll() {
+        List<Account> accounts = iAccountService.findAll();
+        for (Account each : accounts) {
+            System.out.println(each);
+        }
+    }
+
+    @Test
+    public void testFindById() {
+        Account account = iAccountService.findById(1);
+            System.out.println(account);
+    }
+
+    @Test
+    public void testSaveAccount() {
+        Account account = new Account();
+        account.setName("yyy");
+        account.setMoney(1000f);
+        iAccountService.saveAccount(account);
+    }
+
+    @Test
+    public void testUpdatAccount() {
+        Account account = iAccountService.findById(4);
+        account.setName("kkk");
+        iAccountService.updateAccount(account);
+    }
+
+    @Test
+    public void testDeleteAccount() {
+        iAccountService.deleteAccount(4);
+    }
+}
