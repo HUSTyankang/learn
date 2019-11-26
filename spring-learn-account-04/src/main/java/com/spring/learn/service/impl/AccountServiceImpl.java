@@ -132,7 +132,19 @@ public class AccountServiceImpl implements IAccountService {
             //1.开启事务
             txManager.beginTransaction();
             //2.执行操作
-            accountDao.transfer(sourceName, targetName, money);
+            //2.1.查询转出账户
+            Account sourceAccount = accountDao.findAccountByName(sourceName);
+            //2.2.查询转入账户
+            Account targetAccount = accountDao.findAccountByName(targetName);
+            //2.3.转出账户减钱
+            sourceAccount.setMoney(sourceAccount.getMoney() - money);
+            //2.4.转入账户加钱
+            targetAccount.setMoney(targetAccount.getMoney() + money);
+            //2.5.更新转出账户
+            accountDao.updateAccount(sourceAccount);
+            //int i = 1 / 0;
+            //2.6.更新转入账户
+            accountDao.updateAccount(targetAccount);
             //3.提交事务
             txManager.commit();
         }catch (Exception e){
