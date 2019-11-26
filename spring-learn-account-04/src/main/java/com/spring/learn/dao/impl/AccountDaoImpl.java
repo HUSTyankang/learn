@@ -2,6 +2,7 @@ package com.spring.learn.dao.impl;
 
 import com.spring.learn.dao.IAccountDao;
 import com.spring.learn.domain.Account;
+import com.spring.learn.utils.ConnectionUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -18,12 +19,21 @@ import java.util.List;
 @Repository("dao")
 public class AccountDaoImpl implements IAccountDao {
 
-    @Autowired
     private QueryRunner runner;
+
+    public void setRunner(QueryRunner runner) {
+        this.runner = runner;
+    }
+
+    private ConnectionUtils connectionUtils;
+
+    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+        this.connectionUtils = connectionUtils;
+    }
 
     public List<Account> findAll() {
         try {
-            return runner.query("select * from account",new BeanListHandler<Account>(Account.class));
+            return runner.query(connectionUtils.getThreadConnection(),"select * from account",new BeanListHandler<Account>(Account.class));
         } catch (Exception e) {
            throw new RuntimeException(e);
         }
@@ -31,7 +41,7 @@ public class AccountDaoImpl implements IAccountDao {
 
     public Account findById(Integer accountId) {
         try {
-            return runner.query("select * from account where id = ?",new BeanHandler<Account>(Account.class),accountId);
+            return runner.query(connectionUtils.getThreadConnection(),"select * from account where id = ?",new BeanHandler<Account>(Account.class),accountId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +49,7 @@ public class AccountDaoImpl implements IAccountDao {
 
     public void saveAccount(Account account) {
         try {
-            runner.update("insert into account(name,money) value(?,?)",account.getName(),account.getMoney());
+            runner.update(connectionUtils.getThreadConnection(),"insert into account(name,money) value(?,?)",account.getName(),account.getMoney());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -47,7 +57,7 @@ public class AccountDaoImpl implements IAccountDao {
 
     public void updateAccount(Account account) {
         try {
-            runner.update("update account set name=?,money=? where id = ?",account.getName(),account.getMoney(),account.getId());
+            runner.update(connectionUtils.getThreadConnection(),"update account set name=?,money=? where id = ?",account.getName(),account.getMoney(),account.getId());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +65,7 @@ public class AccountDaoImpl implements IAccountDao {
 
     public void deleteAccount(Integer accountId) {
         try {
-            runner.update("delete from account where id = ?",accountId);
+            runner.update(connectionUtils.getThreadConnection(),"delete from account where id = ?",accountId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -72,13 +82,14 @@ public class AccountDaoImpl implements IAccountDao {
         targetAccount.setMoney(targetAccount.getMoney() + money);
         //5.更新转出账户
         updateAccount(sourceAccount);
+        //int i = 1 / 0;
         //6.更新转入账户
         updateAccount(targetAccount);
     }
 
     public Account findAccountByName(String accountName) {
         try {
-            List<Account> accountList = runner.query("select * from account where name = ?",new BeanListHandler<Account>(Account.class),accountName);
+            List<Account> accountList = runner.query(connectionUtils.getThreadConnection(),"select * from account where name = ?",new BeanListHandler<Account>(Account.class),accountName);
             if (accountList == null || accountList.size() == 0){
                 return null;
             }

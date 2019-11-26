@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--配置service-->
+    <bean id="service" class="com.spring.learn.service.impl.AccountServiceImpl">
+        <!-- 注入dao-->
+        <property name="accountDao" ref="dao"></property>
+        <!-- 注入TransactionManager-->
+        <property name="txManager" ref="txManager"></property>
+    </bean>
 
-    <context:component-scan base-package="com.spring.learn"></context:component-scan>
-
-    <!--配置queryRunner-->
-    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
-        <!--注入数据源-->
-        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
+    <!--配置dao-->
+    <bean id="dao" class="com.spring.learn.dao.impl.AccountDaoImpl">
+        <!-- 注入QueryRunner -->
+        <property name="runner" ref="queryRunner"></property>
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
 
     </bean>
+
+    <!--配置queryRunner-->
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype"></bean>
 
     <!--配置数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -25,7 +32,15 @@
         <property name="password" value="root"></property>
     </bean>
 
+    <!--配置Connection的工具类 ConnectionUtils-->
+    <bean id="connectionUtils" class="com.spring.learn.utils.ConnectionUtils">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
 
-
+    <!--配置事务管理器TransactionManager-->
+    <bean id="txManager" class="com.spring.learn.utils.TransactionManager">
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
 
 </beans>
