@@ -66,19 +66,7 @@ public class AccountDaoImpl implements IAccountDao {
     }
 
     public void transfer(String sourceName, String targetName, Float money) {
-        //1.查询转出账户
-        Account sourceAccount = findAccountByName(sourceName);
-        //2.查询转入账户
-        Account targetAccount = findAccountByName(targetName);
-        //3.转出账户减钱
-        sourceAccount.setMoney(sourceAccount.getMoney() - money);
-        //4.转入账户加钱
-        targetAccount.setMoney(targetAccount.getMoney() + money);
-        //5.更新转出账户
-        updateAccount(sourceAccount);
-        //int i = 1 / 0;
-        //6.更新转入账户
-        updateAccount(targetAccount);
+
     }
 
     public Account findAccountByName(String accountName) {
