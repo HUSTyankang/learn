@@ -39,7 +39,8 @@ public class BeanFactory {
             //实例化对象
             properties = new Properties();
             //获取properties文件的流对象
-            InputStream in = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
+//            InputStream in = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
+            InputStream in = ClassLoader.class.getClassLoader().getResourceAsStream("bean.properties");
             properties.load(in);
             //实例化容器
             beans = new HashMap<String, Object>();
