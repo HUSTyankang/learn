@@ -1,6 +1,5 @@
 package com.spring.learn.factory;
 
-import com.spring.learn.domain.Account;
 import com.spring.learn.service.IAccountService;
 import com.spring.learn.utils.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.List;
+
 @Component
 public class BeanFactory {
 

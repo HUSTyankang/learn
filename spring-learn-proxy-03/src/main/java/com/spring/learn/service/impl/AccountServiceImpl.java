@@ -3,7 +3,6 @@ package com.spring.learn.service.impl;
 import com.spring.learn.dao.IAccountDao;
 import com.spring.learn.domain.Account;
 import com.spring.learn.service.IAccountService;
-import com.spring.learn.utils.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
