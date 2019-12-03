@@ -56,14 +56,18 @@ public class Client {
                 //1.获取方法执行的参数
                 Float money = (Float)args[0];
                 //2.判断当前方法是不是销售
-                if("saleProduct".equals(method.getName())) {
+//                if("saleProduct".equals(method.getName())) {
                     System.out.println("我是代理");
+
+                    //对Method实例调用invoke就相当于调用该方法，invoke的第一个参数是对象实例，
+                    //即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错。
                     returnValue = method.invoke(producer, money * 0.8f);
-                }
+//                }
                 return returnValue;
             }
         });
 
         proxyProducer.saleProduct(12000f);
+        proxyProducer.afterService(12000f);
     }
 }
