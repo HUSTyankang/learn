@@ -2,21 +2,18 @@ package com.spring.learn.cglib;
 
 
 
-import com.spring.learn.proxy.IProducer;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * 模拟一个消费者
  */
 public class Client {
     public static void main(String[] args) {
-        final Producer producer = new Producer();
+        Producer producer = new Producer();
 
         /**
          * 动态代理：

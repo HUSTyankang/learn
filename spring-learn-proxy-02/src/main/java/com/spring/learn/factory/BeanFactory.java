@@ -1,19 +1,18 @@
 package com.spring.learn.factory;
 
-import com.spring.learn.domain.Account;
 import com.spring.learn.service.IAccountService;
 import com.spring.learn.utils.TransactionManager;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.List;
 
 public class BeanFactory {
 
     private IAccountService accountService;
     private TransactionManager txManager;
 
+    //在JDK8之前，如果我们在匿名内部类中需要访问局部变量，那么这个局部变量必须用final修饰符修饰
+    //看似是一种编译机制的改变，实际上就是一个语法糖（底层还是帮你加了final）。
     public final void setAccountService(IAccountService accountService) {
         this.accountService = accountService;
     }

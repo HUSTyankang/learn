@@ -9,7 +9,7 @@ import java.lang.reflect.Proxy;
  */
 public class Client {
     public static void main(String[] args) {
-        final Producer producer = new Producer();
+        Producer producer = new Producer();
 
         /**
          * 动态代理：

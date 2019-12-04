@@ -9,8 +9,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.management.Query;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -63,10 +61,6 @@ public class AccountDaoImpl implements IAccountDao {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void transfer(String sourceName, String targetName, Float money) {
-
     }
 
     public Account findAccountByName(String accountName) {

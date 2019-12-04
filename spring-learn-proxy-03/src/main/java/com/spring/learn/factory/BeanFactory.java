@@ -3,6 +3,7 @@ package com.spring.learn.factory;
 import com.spring.learn.service.IAccountService;
 import com.spring.learn.utils.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class BeanFactory {
     private TransactionManager txManager;
 
     @Autowired
+    @Qualifier("service")
     public final void setAccountService(IAccountService accountService) {
         this.accountService = accountService;
     }

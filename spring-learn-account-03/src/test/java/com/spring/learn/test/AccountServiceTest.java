@@ -1,14 +1,11 @@
 package com.spring.learn.test;
 
-import config.SpringConfiguration;
 import com.spring.learn.domain.Account;
 import com.spring.learn.service.IAccountService;
-import org.junit.Before;
+import config.SpringConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -92,6 +89,6 @@ public class AccountServiceTest {
     @Test
     public void testDeleteAccount() {
 
-        iAccountService.deleteAccount(4);
+        iAccountService.deleteAccount(7);
     }
 }
